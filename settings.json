@@ -1,5 +1,5 @@
 {
- "bluetooth.enabled": true,
+ "bluetooth.enabled": false,
  "lockscreen.enabled": true
 }
 
