@@ -90,7 +90,7 @@ export LOCALE_BASEDIR=$WORKDIR/gaia-l10n
 export LOCALES_FILE=$WORKDIR/gaia-l10n/languages_dev.json
 #export GAIA_DEFAULT_LOCALE=es
 export REMOTE_DEBUGGER=1
-export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,fr,hu,it,pl,pt-BR,ru
+export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
 export GAIA_DISTRIBUTION_DIR=$WORKDIR/vegnuxmod
 ########################
 ## Gecko
