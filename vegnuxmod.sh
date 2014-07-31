@@ -123,7 +123,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <!-- Gaia languages -->
 <project path="gaia-l10n/de" name="l10n/de/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
+<project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="v1_3" />
 <project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
@@ -137,7 +137,9 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
-<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH"/>
+<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
+<copyfile src="vegnuxmod.sh" dest="../vegnuxmod-v1.3.sh" />
+</project>
 </manifest>
 EOF
 echo "** Creando en fichero de idiomas \"languages_dev.json\""
