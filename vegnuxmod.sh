@@ -137,7 +137,9 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
-<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH"/>
+<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
+<copyfile src="vegnuxmod.sh" dest="../vegnuxmod-v1.4.sh" />
+</project>
 </manifest>
 EOF
 echo "** Creando en fichero de idiomas \"languages_dev.json\""
