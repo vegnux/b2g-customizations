@@ -10,6 +10,7 @@
 #############
 # VARIABLES #
 #############
+export BUILD_BRANCH=v1.3
 export ROOTDIR=$(pwd)
 export WORKDIR=$ROOTDIR/B2G
 #############
@@ -124,8 +125,10 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
+<project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
+<project path="gaia-l10n/pl" name="l10n/pl/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/pt-BR" name="l10n/pt-BR/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/ru" name="l10n/ru/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
@@ -134,7 +137,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
-<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="master"/>
+<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH"/>
 </manifest>
 EOF
 echo "** Creando en fichero de idiomas \"languages_dev.json\""
@@ -160,8 +163,6 @@ EOF
 function SetBranch(){
 echo "1. ¿Con qué dispositivo desea trabajar? (ej.: hamachi, inari, otoro):"
 read DEVICE
-echo "2. ¿Cual rama desa compilar? (ej.: v1.4, v2.0, master):"
-read BUILD_BRANCH
 echo "** Estableciendo la rama $BUILD_BRANCH para el dispositivo $DEVICE..."
 cd $WORKDIR
 ./repo init -u https://github.com/cargabsj175/b2g-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
@@ -181,7 +182,7 @@ fi
  
 function UpdateAll(){
 cd $WORKDIR
-./repo sync -j4
+./repo sync -j2
 }
  
 function UpdateB2G(){
@@ -253,12 +254,12 @@ echo "Modo de uso: $0 --opcion"
 echo ""
 echo "--build, compila tu Firefox OS."
 echo "--clean-all, limpia el directorio de trabajo para comenzar con una rama nueva."
-echo "--clean-b2g, limpia solo los directorios relacionados con Firefox OS."
+echo "--clean-b2g, limpia solo los directorios relacionados con Firefox OS. (no se recomienda cuando cambia de rama git)"
 echo "--prepare, crea y establece ficheros necesarios para un dispositivo y rama determinada."
 echo "--help, muestra este mensaje."
 echo "--new-repo, crea un directorio de trabajo desde cero."
 echo "--update-all, limpia el directorio de trabajo y actualiza los repositorios."
-echo "--update-b2g, limpia solo lo relacionado con Firefox OS y actualiza los repositorios."
+echo "--update-b2g, limpia solo lo relacionado con Firefox OS y actualiza los repositorios. (no se recomienda cuando cambia de rama git)"
 echo ""
 }
  
