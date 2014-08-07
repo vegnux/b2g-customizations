@@ -114,10 +114,6 @@ cat << EOF > .repo/local_manifests/extra.xml
 <remote name="cm" fetch="https://github.com/CyanogenMod/" />
 <remote name="mozillaorg2" fetch="https://git.mozilla.org/" />
 <remote name="vegnux" fetch="https://github.com/cargabsj175/" />
-<!-- remove original hamachi -->
-<remove-project name="android-device-hamachi" />
-<!-- adding custom hamachi -->
-<project path="device/qcom/hamachi" name="android-device-hamachi" remote="vegnux" revision="$BUILD_BRANCH"/>
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
@@ -213,44 +209,36 @@ echo "** Actualizando los lenguajes de gecko..."
 ./repo sync gecko-l10n/es-ES
 }
  
+
 function CopyFiles(){
-echo "* Copiando xulrunner..."
+CF_XUL=xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2
+CF_MSG0="* Copiando ${CF_XUL}..."
+CF_MSG1="** No existe el fichero ${CF_XUL} necesario para gaia."
+CF_MSG2="Desea descargarlo? (s/n)"
+CF_MSG3="No se puede continuar."
+if [[ $BUILD_BRANCH == v1.4 ]];then
+if [[ -f $ROOTDIR/${CF_XUL} ]];then
+echo ${CF_MSG0}
 mkdir -p $WORKDIR/gaia
-if [[ $BUILD_BRANCH == v1.3 ]];then
-if [[ -f $ROOTDIR/xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2 ]];then
-cp -v $ROOTDIR/xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2 $WORKDIR/gaia/.
+cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
 else
-echo "** No existe el fichero xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2 necesario para gaia."
-echo "Desea descargarlo? (s/n)"
+echo ${CF_MSG1}
+echo ${CF_MSG2}
 read DOWN_XUL
 if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "http://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2013/09/2013-09-03-03-02-01-mozilla-central/xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2"
+wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/${CF_XUL}"
 else
-echo "No se puede continuar."
+echo ${CF_MSG3}
 exit 0
 fi
-fi
-else
-if [[ -f $ROOTDIR/xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2 ]];then
-cp -v $ROOTDIR/xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2 $WORKDIR/gaia/.
-else
-echo "** No existe el fichero xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2 necesario para gaia."
-echo "Desea descargarlo? (s/n)"
-read DOWN_XUL
-if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2"
-else
-echo "No se puede continuar."
-exit 0
-fi
-fi
+fi	
 fi
 }
  
 function help(){
 echo ""
-echo "$0 version 20140708 by cargabsj175"
-echo "Proyecto Vegnux 2007-2014."
+echo "$0 version $BUILD_BRANCH by cargabsj175"
+echo "Proyecto Vegnux 2007-$(date +%Y)."
 echo ""
 echo "Modo de uso: $0 --opcion"
 echo ""
