@@ -113,10 +113,6 @@ cat << EOF > .repo/local_manifests/extra.xml
 <remote name="cm" fetch="https://github.com/CyanogenMod/" />
 <remote name="mozillaorg2" fetch="https://git.mozilla.org/" />
 <remote name="vegnux" fetch="https://github.com/cargabsj175/" />
-<!-- remove original hamachi -->
-<remove-project name="android-device-hamachi" />
-<!-- adding custom hamachi -->
-<project path="device/qcom/hamachi" name="android-device-hamachi" remote="vegnux" revision="$BUILD_BRANCH"/>
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
@@ -134,7 +130,9 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
-<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="master"/>
+<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
+<copyfile src="vegnuxmod.sh" dest="../vegnuxmod.sh" />
+</project>
 </manifest>
 EOF
 echo "** Creando en fichero de idiomas \"languages_dev.json\""
@@ -160,7 +158,7 @@ EOF
 function SetBranch(){
 echo "1. ¿Con qué dispositivo desea trabajar? (ej.: hamachi, inari, otoro):"
 read DEVICE
-echo "2. ¿Cual rama desa compilar? (ej.: v1.4, v2.0, master):"
+echo "2. ¿Cual rama desa compilar? (ej.: v1.4, v2.0, master, etc):"
 read BUILD_BRANCH
 echo "** Estableciendo la rama $BUILD_BRANCH para el dispositivo $DEVICE..."
 cd $WORKDIR
@@ -211,33 +209,79 @@ echo "** Actualizando los lenguajes de gecko..."
 }
  
 function CopyFiles(){
-echo "* Copiando xulrunner..."
+CF_MSG0="* Copiando ${CF_XUL}..."
+CF_MSG1="** No existe el fichero ${CF_XUL} necesario para gaia."
+CF_MSG2="Desea descargarlo? (s/n)"
+CF_MSG3="No se puede continuar."
+# para v1.3
+if [[ $BUILD_BRANCH == v1.3 ]]; then
+CF_XUL=xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2
+if [[ -f $ROOTDIR/${CF_XUL} ]];then
+echo ${CF_MSG0}
 mkdir -p $WORKDIR/gaia
-if [[ $BUILD_BRANCH == v1.3 ]];then
-if [[ -f $ROOTDIR/xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2 ]];then
-cp -v $ROOTDIR/xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2 $WORKDIR/gaia/.
+cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
 else
-echo "** No existe el fichero xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2 necesario para gaia."
-echo "Desea descargarlo? (s/n)"
+echo ${CF_MSG1}
+echo ${CF_MSG2}
 read DOWN_XUL
 if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "http://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2013/09/2013-09-03-03-02-01-mozilla-central/xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2"
+wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2013/09/2013-09-03-03-02-01-mozilla-central/${CF_XUL}"
 else
-echo "No se puede continuar."
+echo ${CF_MSG3}
 exit 0
 fi
-fi
+fi	
+# para v1.4
+elif [[ $BUILD_BRANCH == v1.4 ]]; then
+CF_XUL=xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2
+if [[ -f $ROOTDIR/${CF_XUL} ]];then
+echo ${CF_MSG0}
+mkdir -p $WORKDIR/gaia
+cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
 else
-if [[ -f $ROOTDIR/xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2 ]];then
-cp -v $ROOTDIR/xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2 $WORKDIR/gaia/.
-else
-echo "** No existe el fichero xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2 necesario para gaia."
-echo "Desea descargarlo? (s/n)"
+echo ${CF_MSG1}
+echo ${CF_MSG2}
 read DOWN_XUL
 if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2"
+wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/${CF_XUL}"
 else
-echo "No se puede continuar."
+echo ${CF_MSG3}
+exit 0
+fi
+fi	
+# para v2.0
+elif [[ $BUILD_BRANCH == v2.0 ]]; then
+CF_XUL=xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2
+if [[ -f $ROOTDIR/${CF_XUL} ]];then
+echo ${CF_MSG0}
+mkdir -p $WORKDIR/gaia
+cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
+else
+echo ${CF_MSG1}
+echo ${CF_MSG2}
+read DOWN_XUL
+if [[ "$DOWN_XUL" == "s" ]];then
+wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/${CF_XUL}"
+else
+echo ${CF_MSG3}
+exit 0
+fi
+fi	
+# para master
+elif [[ $BUILD_BRANCH == master ]]; then
+if [[ -f $ROOTDIR/${CF_XUL} ]];then
+echo ${CF_MSG0}
+mkdir -p $WORKDIR/gaia
+cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
+else
+echo ${CF_MSG1}
+echo ${CF_MSG2}
+read DOWN_XUL
+if [[ "$DOWN_XUL" == "s" ]];then
+CF_XUL=xulrunner-33.0a1.en-US.linux-x86_64.sdk.tar.bz2
+wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014-07-21-06-21-16-mozilla-central/${CF_XUL}"
+else
+echo ${CF_MSG3}
 exit 0
 fi
 fi
@@ -246,8 +290,8 @@ fi
  
 function help(){
 echo ""
-echo "$0 version 20140708 by cargabsj175"
-echo "Proyecto Vegnux 2007-2014."
+echo "$0 version $BUILD_BRANCH by cargabsj175"
+echo "Proyecto Vegnux 2007-$(date +%Y)."
 echo ""
 echo "Modo de uso: $0 --opcion"
 echo ""
