@@ -1,6 +1,6 @@
 {
  "app.update.channel": "nightly",
- "app.update.url": "http://update.boot2gecko.org/hamachi/2.1.0/%CHANNEL%/update.xml?build_id=%BUILD_ID%&version=%VERSION%",
+ "app.update.url": "http://update.boot2gecko.org/hamachi/2.0.0/%CHANNEL%/update.xml?build_id=%BUILD_ID%&version=%VERSION%",
  "bluetooth.enabled": false,
  "camera.sound.enabled": true,
  "debug.console.enabled": true,
@@ -33,3 +33,4 @@
  "tethering.wifi.security.type": "wpa2-psk",
  "wifi.notification": true
 }
+
