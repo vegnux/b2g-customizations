@@ -127,7 +127,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
 <!-- Gecko languages -->
-<project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
+<project path="compare-locales" name="compare-locales" remote="vegnux" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
 <project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
@@ -267,8 +267,8 @@ echo ${CF_MSG3}
 exit 0
 fi
 fi	
-# para master
-elif [[ $BUILD_BRANCH == master ]]; then
+# para 2.1
+elif [[ $BUILD_BRANCH == 2.1 ]]; then
 if [[ -f $ROOTDIR/${CF_XUL} ]];then
 echo ${CF_MSG0}
 mkdir -p $WORKDIR/gaia
@@ -280,6 +280,24 @@ read DOWN_XUL
 if [[ "$DOWN_XUL" == "s" ]];then
 CF_XUL=xulrunner-33.0a1.en-US.linux-x86_64.sdk.tar.bz2
 wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014-07-21-06-21-16-mozilla-central/${CF_XUL}"
+else
+echo ${CF_MSG3}
+exit 0
+fi
+fi
+# para master
+elif [[ $BUILD_BRANCH == master ]]; then
+if [[ -f $ROOTDIR/${CF_XUL} ]];then
+echo ${CF_MSG0}
+mkdir -p $WORKDIR/gaia
+cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
+else
+echo ${CF_MSG1}
+echo ${CF_MSG2}
+read DOWN_XUL
+if [[ "$DOWN_XUL" == "s" ]];then
+CF_XUL=b2g-34.0a1.multi.linux-x86_64.tar.bz2
+wget -c "http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/2014/08/2014-08-12-04-02-01-mozilla-central/${CF_XUL}"
 else
 echo ${CF_MSG3}
 exit 0
