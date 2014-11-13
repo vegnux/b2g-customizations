@@ -77,17 +77,17 @@ export GAIA_APP_TARGET=production
 ########################
 ## Gaia
 ########################
-export LOCALE_BASEDIR=/media/carlos/proyectos/FirefoxOS/rpi/B2G/gaia-l10n
-export LOCALES_FILE=/media/carlos/proyectos/FirefoxOS/rpi/B2G/gaia-l10n/languages_dev.json
+export LOCALE_BASEDIR=$WORKDIR/B2G/gaia-l10n
+export LOCALES_FILE=$WORKDIR/B2G/gaia-l10n/languages_dev.json
 #export GAIA_DEFAULT_LOCALE=es
 export REMOTE_DEBUGGER=1
 export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
 ## Gecko
 ########################
-export L10NBASEDIR='/media/carlos/proyectos/FirefoxOS/rpi/B2G/gecko-l10n'
+export L10NBASEDIR='$WORKDIR/B2G/gecko-l10n'
 export MOZ_CHROME_MULTILOCALE="es-ES"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/media/carlos/proyectos/FirefoxOS/rpi/B2G/compare-locales/scripts"
-export PYTHONPATH="/media/carlos/proyectos/FirefoxOS/rpi/B2G/compare-locales/lib"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$WORKDIR/B2G/compare-locales/scripts"
+export PYTHONPATH="$WORKDIR/B2G/compare-locales/lib"
 ########################
 EOF
 echo "** Creando en fichero de repositorios extra en \".repo/local_manifests/extra.xml\""
