@@ -62,6 +62,7 @@ echo "** Creando el fichero de configuraciones principal \".config\""
 cat << EOF > .config
 MAKE_FLAGS=-j4
 GECKO_OBJDIR=$WORKDIR/objdir-gecko
+DEVICE_NAME=$DEVICE
 PRODUCT_NAME=$DEVICE
 EOF
 echo "** Creando el fichero de configuraciones personales \".userconfig\""
@@ -143,7 +144,7 @@ EOF
 function SetBranch(){
 echo "** Estableciendo la rama $BUILD_BRANCH para el dispositivo $DEVICE..."
 cd $WORKDIR
-./repo init -u https://github.com/cargabsj175/b2g-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
+./repo init -u https://github.com/mozilla-b2g/b2g-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
 }
  
 function NewRepo(){
