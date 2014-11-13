@@ -13,6 +13,11 @@
 export ROOTDIR=$(pwd)
 export WORKDIR=$ROOTDIR/B2G
 #############
+# RPI		#
+#############
+export DEVICE=rpi
+export BUILD_BRANCH=master
+#############
 # FUNCIONES #
 #############
 function CleanAll(){
@@ -21,6 +26,7 @@ cd $WORKDIR
 rm -r abi \
 bionic \
 bootable \
+brcm_usrlib \
 build \
 compare-locales \
 dalvik \
@@ -56,53 +62,32 @@ echo "** Creando el fichero de configuraciones principal \".config\""
 cat << EOF > .config
 MAKE_FLAGS=-j4
 GECKO_OBJDIR=$WORKDIR/objdir-gecko
-DEVICE_NAME=$DEVICE
-DEVICE=$DEVICE
+PRODUCT_NAME=$DEVICE
 EOF
 echo "** Creando el fichero de configuraciones personales \".userconfig\""
 cat << EOF > .userconfig
 ########################
 VARIANT=user
 ########################
-## Development
-########################
-#export B2G_DEBUG=1 # Debug Build
-#export B2G_NOOPT=1 # Disable Optimizer
-#export NOFTU=1 # Disable First Time User Experience
-#export DEVICE_DEBUG=1 # Enable gaia developer mode
-########################
-## Bootlogo
-########################
-export ENABLE_DEFAULT_BOOTANIMATION=true
-########################
 ## Make Official Branding Build
 ########################
 export MOZILLA_OFFICIAL=1
 export PRODUCTION=1
 export GAIA_APP_TARGET=production
-export GAIA_INSTALL_PARENT=/system/b2g
-export PRESERVE_B2G_WEBAPPS=0
-export B2G_SYSTEM_APPS=1
 ########################
 ## Gaia
 ########################
-export LOCALE_BASEDIR=$WORKDIR/gaia-l10n
-export LOCALES_FILE=$WORKDIR/gaia-l10n/languages_dev.json
+export LOCALE_BASEDIR=/media/carlos/proyectos/FirefoxOS/rpi/B2G/gaia-l10n
+export LOCALES_FILE=/media/carlos/proyectos/FirefoxOS/rpi/B2G/gaia-l10n/languages_dev.json
 #export GAIA_DEFAULT_LOCALE=es
 export REMOTE_DEBUGGER=1
 export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
-export GAIA_DISTRIBUTION_DIR=$WORKDIR/vegnuxmod
-########################
 ## Gecko
 ########################
-export L10NBASEDIR='$WORKDIR/gecko-l10n'
+export L10NBASEDIR='/media/carlos/proyectos/FirefoxOS/rpi/B2G/gecko-l10n'
 export MOZ_CHROME_MULTILOCALE="es-ES"
-export PATH="$PATH:$WORKDIR/compare-locales/scripts"
-export PYTHONPATH="$WORKDIR/compare-locales/lib"
-########################
-## Fota ./build.sh gecko-update-fota
-########################
-B2G_FOTA_DIRS="system/b2g system/xbin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/media/carlos/proyectos/FirefoxOS/rpi/B2G/compare-locales/scripts"
+export PYTHONPATH="/media/carlos/proyectos/FirefoxOS/rpi/B2G/compare-locales/lib"
 ########################
 EOF
 echo "** Creando en fichero de repositorios extra en \".repo/local_manifests/extra.xml\""
@@ -131,7 +116,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
 <project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
-<copyfile src="vegnuxmod.sh" dest="../vegnuxmod.sh" />
+<copyfile src="vegnuxmod.sh" dest="../vegnuxmod-master-rpi.sh" />
 </project>
 </manifest>
 EOF
@@ -156,10 +141,6 @@ cat << EOF > gaia-l10n/languages_dev.json
 EOF
 }
 function SetBranch(){
-echo "1. ¿Con qué dispositivo desea trabajar? (ej.: hamachi, inari, otoro):"
-read DEVICE
-echo "2. ¿Cual rama desa compilar? (ej.: v1.4, v2.0, master, etc):"
-read BUILD_BRANCH
 echo "** Estableciendo la rama $BUILD_BRANCH para el dispositivo $DEVICE..."
 cd $WORKDIR
 ./repo init -u https://github.com/cargabsj175/b2g-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
