@@ -2,7 +2,7 @@
 # Generar un script para vegnuxmod (roms para firefox os) que permita la automatización
 # en las compilaciones de los diferentes "branches" o ramas utilizando las mismas fuentes git
 # evitando la redundancia de código, en esta primera versión se manejarán las siguientes versiones.
-# v1.4, v2.0 y master
+# master
 #
 # Se describirá a continuación paso por paso los procedimientos que se deben seguir para preparar
 # el código fuente segun la rama git.
@@ -10,6 +10,7 @@
 #############
 # VARIABLES #
 #############
+export BUILD_BRANCH=master
 export ROOTDIR=$(pwd)
 export WORKDIR=$ROOTDIR/B2G
 #############
@@ -87,7 +88,7 @@ export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
 ########################
 export L10NBASEDIR='$WORKDIR/gecko-l10n'
 export MOZ_CHROME_MULTILOCALE="es-ES"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$WORKDIR/compare-locales/scripts"
+export PATH="$PATH:$WORKDIR/compare-locales/scripts"
 export PYTHONPATH="$WORKDIR/compare-locales/lib"
 ########################
 EOF
@@ -102,18 +103,20 @@ cat << EOF > .repo/local_manifests/extra.xml
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
-<project path="gaia-l10n/de" name="l10n/de/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/pt-BR" name="l10n/pt-BR/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/ru" name="l10n/ru/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
-<project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="$BUILD_BRANCH" />
+<project path="gaia-l10n/de" name="l10n/de/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/pl" name="l10n/pl/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/pt-BR" name="l10n/pt-BR/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/ru" name="l10n/ru/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="master" />
 <!-- Gecko languages -->
-<project path="compare-locales" name="compare-locales" remote="vegnux" revision="master" />
+<project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
 <project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
@@ -191,13 +194,12 @@ echo "** Actualizando los lenguajes de gecko..."
 }
  
 function CopyFiles(){
+CF_XUL=b2g-34.0a1.multi.linux-x86_64.tar.bz2
 CF_MSG0="* Copiando ${CF_XUL}..."
 CF_MSG1="** No existe el fichero ${CF_XUL} necesario para gaia."
 CF_MSG2="Desea descargarlo? (s/n)"
 CF_MSG3="No se puede continuar."
-# para v1.3
-if [[ $BUILD_BRANCH == v1.3 ]]; then
-CF_XUL=xulrunner-26.0a1.en-US.linux-x86_64.sdk.tar.bz2
+if [[ $BUILD_BRANCH == master ]];then
 if [[ -f $ROOTDIR/${CF_XUL} ]];then
 echo ${CF_MSG0}
 mkdir -p $WORKDIR/gaia
@@ -207,78 +209,6 @@ echo ${CF_MSG1}
 echo ${CF_MSG2}
 read DOWN_XUL
 if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2013/09/2013-09-03-03-02-01-mozilla-central/${CF_XUL}"
-else
-echo ${CF_MSG3}
-exit 0
-fi
-fi	
-# para v1.4
-elif [[ $BUILD_BRANCH == v1.4 ]]; then
-CF_XUL=xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2
-if [[ -f $ROOTDIR/${CF_XUL} ]];then
-echo ${CF_MSG0}
-mkdir -p $WORKDIR/gaia
-cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
-else
-echo ${CF_MSG1}
-echo ${CF_MSG2}
-read DOWN_XUL
-if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/${CF_XUL}"
-else
-echo ${CF_MSG3}
-exit 0
-fi
-fi	
-# para v2.0
-elif [[ $BUILD_BRANCH == v2.0 ]]; then
-CF_XUL=xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2
-if [[ -f $ROOTDIR/${CF_XUL} ]];then
-echo ${CF_MSG0}
-mkdir -p $WORKDIR/gaia
-cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
-else
-echo ${CF_MSG1}
-echo ${CF_MSG2}
-read DOWN_XUL
-if [[ "$DOWN_XUL" == "s" ]];then
-wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014/02/2014-02-07-03-02-01-mozilla-central/${CF_XUL}"
-else
-echo ${CF_MSG3}
-exit 0
-fi
-fi	
-# para 2.1
-elif [[ $BUILD_BRANCH == 2.1 ]]; then
-if [[ -f $ROOTDIR/${CF_XUL} ]];then
-echo ${CF_MSG0}
-mkdir -p $WORKDIR/gaia
-cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
-else
-echo ${CF_MSG1}
-echo ${CF_MSG2}
-read DOWN_XUL
-if [[ "$DOWN_XUL" == "s" ]];then
-CF_XUL=xulrunner-33.0a1.en-US.linux-x86_64.sdk.tar.bz2
-wget -c "https://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2014-07-21-06-21-16-mozilla-central/${CF_XUL}"
-else
-echo ${CF_MSG3}
-exit 0
-fi
-fi
-# para master
-elif [[ $BUILD_BRANCH == master ]]; then
-if [[ -f $ROOTDIR/${CF_XUL} ]];then
-echo ${CF_MSG0}
-mkdir -p $WORKDIR/gaia
-cp -v $ROOTDIR/${CF_XUL} $WORKDIR/gaia/.
-else
-echo ${CF_MSG1}
-echo ${CF_MSG2}
-read DOWN_XUL
-if [[ "$DOWN_XUL" == "s" ]];then
-CF_XUL=b2g-34.0a1.multi.linux-x86_64.tar.bz2
 wget -c "http://ftp.mozilla.org/pub/mozilla.org/b2g/nightly/2014/08/2014-08-12-04-02-01-mozilla-central/${CF_XUL}"
 else
 echo ${CF_MSG3}
