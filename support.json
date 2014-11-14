@@ -2,9 +2,15 @@
   "Blog": {
     "href": "http://vegnuxmod.wordpress.com/",
     "title": "Vegnuxmod Blog"
-  }
-  "Facebook": {
+  },
+  "Facebook": [
+  {
 	"href": "https://www.facebook.com/groups/VegnuxMod/"
 	"title" "VegnuxMod Community"
+  },
+  {
+	"href": "https://twitter.com/cargabsj175"
+	"title" "@cargabsj175"
   }
+  ]
 }
