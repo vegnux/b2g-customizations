@@ -1,6 +1,10 @@
 {
-  "onlinesupport": {
-    "href": "http://elsimpicuitico.wordpress.com/firefoxos",
-    "title": "Vegnuxmod Support"
+  "Blog": {
+    "href": "http://vegnuxmod.wordpress.com/",
+    "title": "Vegnuxmod Blog"
+  }
+  "Facebook": {
+	"href": ""
+	"title" "VegnuxMod Community"
   }
 }
