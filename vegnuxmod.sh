@@ -1,8 +1,8 @@
 #!/bin/bash
 # Generar un script para vegnuxmod (roms para firefox os) que permita la automatización
 # en las compilaciones de los diferentes "branches" o ramas utilizando las mismas fuentes git
-# evitando la redundancia de código, en esta primera versión se manejarán las siguientes versiones.
-# v1.4, v2.0 y master
+# evitando la redundancia de código, en esta primera versión se manejará la siguiente versión.
+# v2.0
 #
 # Se describirá a continuación paso por paso los procedimientos que se deben seguir para preparar
 # el código fuente segun la rama git.
