@@ -1,16 +1,20 @@
 {
-  "Blog": {
-    "href": "http://vegnuxmod.wordpress.com/",
-    "title": "Vegnuxmod Blog"
-  },
-  "Facebook": [
-  {
-	"href": "https://www.facebook.com/groups/VegnuxMod/"
-	"title" "VegnuxMod Community"
-  },
-  {
+    "onlinesupport":{
+       "href": "http://vegnuxmod.wordpress",
+       "title": "VegnuxMod Blog"
+    },
+    "callsupport": [
+    {
+       "href": "https://facebook.com/groups/VegnuxMod/",
+       "title": "VegnuxMod Community"
+    },
+    {
 	"href": "https://twitter.com/cargabsj175"
 	"title" "@cargabsj175"
-  }
+    },
+    {
+       "href": "https://twitter.com/amirtorrez",
+       "title": "@amirtorrez"
+    }
   ]
 }
