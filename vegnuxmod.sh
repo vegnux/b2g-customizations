@@ -113,7 +113,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <manifest>
 <remote name="cm" fetch="https://github.com/CyanogenMod/" />
 <remote name="mozillaorg2" fetch="https://git.mozilla.org/" />
-<remote name="vegnux" fetch="https://github.com/cargabsj175/" />
+<remote name="vegnux" fetch="https://github.com/VegnuxMod/" />
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
@@ -213,7 +213,8 @@ echo "** Actualizando los lenguajes de gecko..."
 }
  
 function CopyFiles(){
-CF_XUL=b2g-34.0a1.multi.linux-x86_64.tar.bz2
+ARCH_XUL="$(uname -m)"
+CF_XUL="b2g-34.0a1.multi.linux-${ARCH_XUL}.tar.bz2"
 CF_MSG0="* Copiando ${CF_XUL}..."
 CF_MSG1="** No existe el fichero ${CF_XUL} necesario para gaia."
 CF_MSG2="Desea descargarlo? (s/n)"
