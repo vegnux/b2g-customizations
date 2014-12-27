@@ -113,7 +113,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <manifest>
 <remote name="cm" fetch="https://github.com/CyanogenMod/" />
 <remote name="mozillaorg2" fetch="https://git.mozilla.org/" />
-<remote name="vegnux" fetch="https://github.com/cargabsj175/" />
+<remote name= fetch="https://github.com/VegnuxMod/" />
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
@@ -131,7 +131,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="v2.0" />
 <project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="v2.0" />
 <!-- Gecko languages -->
-<project path="compare-locales" name="compare-locales" remote="vegnux" revision="master" />
+<project path="compare-locales" name="compare-locales" remote= revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
 <project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
@@ -214,7 +214,8 @@ echo "** Actualizando los lenguajes de gecko..."
  
 
 function CopyFiles(){
-CF_XUL=xulrunner-30.0a1.en-US.linux-x86_64.sdk.tar.bz2
+ARCH_XUL="$(uname -m)"
+CF_XUL="xulrunner-30.0a1.en-US.linux-${ARCH_XUL}.sdk.tar.bz2"
 CF_MSG0="* Copiando ${CF_XUL}..."
 CF_MSG1="** No existe el fichero ${CF_XUL} necesario para gaia."
 CF_MSG2="Desea descargarlo? (s/n)"
