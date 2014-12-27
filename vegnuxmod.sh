@@ -121,6 +121,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="v2.0" />
 <project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="v2.0" />
 <project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="v2.0" />
+<project path="gaia-l10n/eu" name="l10n/eu/gaia.git" remote="mozillaorg" revision="v2.0" />
 <project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="v2.0" />
 <project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="v2.0" />
 <project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="v2.0" />
@@ -147,6 +148,7 @@ cat << EOF > gaia-l10n/languages_dev.json
 "el" : "Ελληνικά",
 "eo" : "Esperanto",
 "es" : "Español",
+"eu" : "Euskara",
 "fr" : "Français",
 "hu" : "Magyar",
 "it" : "Italiano",
@@ -196,6 +198,7 @@ echo "** Actualizando los lenguajes de gaia..."
 ./repo sync gaia-l10n/el
 ./repo sync gaia-l10n/eo
 ./repo sync gaia-l10n/es
+./repo sync gaia-l10n/eu
 ./repo sync gaia-l10n/fr
 ./repo sync gaia-l10n/hu
 ./repo sync gaia-l10n/it
