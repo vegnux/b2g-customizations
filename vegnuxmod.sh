@@ -117,18 +117,19 @@ cat << EOF > .repo/local_manifests/extra.xml
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
-<project path="gaia-l10n/de" name="l10n/de/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/pl" name="l10n/pl/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/pt-BR" name="l10n/pt-BR/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/ru" name="l10n/ru/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="master" />
-<project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/de" name="l10n/de/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/eu" name="l10n/eu/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/pl" name="l10n/pl/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/pt-BR" name="l10n/pt-BR/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/ru" name="l10n/ru/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="2.1" />
+<project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="2.1" />
 <!-- Gecko languages -->
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
@@ -147,6 +148,7 @@ cat << EOF > gaia-l10n/languages_dev.json
 "el" : "Ελληνικά",
 "eo" : "Esperanto",
 "es" : "Español",
+"eu" : "Euskara",
 "fr" : "Français",
 "hu" : "Magyar",
 "it" : "Italiano",
@@ -196,6 +198,7 @@ echo "** Actualizando los lenguajes de gaia..."
 ./repo sync gaia-l10n/el
 ./repo sync gaia-l10n/eo
 ./repo sync gaia-l10n/es
+./repo sync gaia-l10n/eu
 ./repo sync gaia-l10n/fr
 ./repo sync gaia-l10n/hu
 ./repo sync gaia-l10n/it
