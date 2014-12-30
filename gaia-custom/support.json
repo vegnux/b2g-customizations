@@ -1,0 +1,16 @@
+{
+    "onlinesupport":{
+       "href": "http://vegnuxmod.wordpress",
+       "title": "VegnuxMod Blog"
+    },
+    "callsupport": [
+    {
+       "href": "https://facebook.com/groups/VegnuxMod/",
+       "title": "VegnuxMod Community"
+    },
+    {
+       "href": "https://twitter.com/amirtorrez",
+       "title": "@amirtorrez"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+repo: 0809b97b23538af49bbcf39ea391a11b261caf74
+node: f66d53cb9a71425640f709cb1e67b40cac4ab3bd
+branch: default
+latesttag: B2G_1_0_0_20130125190500
+latesttagdistance: 324

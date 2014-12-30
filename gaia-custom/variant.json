@@ -1,0 +1,39 @@
+{
+  "apps": {
+    "Archivos":
+      {
+        "manifestURL": "https://marketplace.firefox.com/app/6175f22e-49f1-4ec1-b6c7-ccf9ea47c0b7/manifest.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      },
+    "RepoZilla":
+      {
+        "manifestURL": "https://marketplace.firefox.com/app/f71c1433-b575-419f-a3df-92649c11eb43/manifest.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      },
+    "LED Flashlight":
+      {
+        "manifestURL": "https://marketplace.firefox.com/app/00fa25d6-d86a-459b-b540-36de41450293/manifest.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      },
+    "Calculadora":
+      {
+        "manifestURL": "https://marketplace.firefox.com/app/9f96ce77-5b2d-42ca-a0d9-10a933dd84c4/manifest.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      },
+    "Telegram":
+      {
+        "manifestURL": "https://marketplace.firefox.com/app/0a444027-f667-4c8c-b792-8dfe866f0c9e/manifest.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      },
+    "PDF Viewer":
+      {
+        "manifestURL": "https://marketplace.firefox.com/app/f9dabc77-d391-4c80-9bce-0db85c3aab05/manifest.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      },
+    "Twitter":
+      {
+        "manifestURL": "https://mobile.twitter.com/cache/twitter.webapp",
+        "installOrigin": "https://marketplace.firefox.com"
+      }
+  }
+}

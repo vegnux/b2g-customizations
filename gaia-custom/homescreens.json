@@ -1,0 +1,31 @@
+{
+  "homescreens": [
+    [
+      ["apps", "sms"],
+      ["apps", "communications", "dialer"],
+      ["apps", "communications", "contacts"]
+    ], [
+      ["apps", "search"],
+      ["apps", "clock"],
+      ["apps", "music"]
+    ], [
+      ["apps/collection/collections", "funny"],
+      ["apps/collection/collections", "games"],
+      ["apps/collection/collections", "music"],
+      ["apps/collection/collections", "social"]
+    ], [
+      ["apps", "settings"],
+      ["apps", "calendar"],
+      ["apps", "camera"],
+      ["apps", "costcontrol"],
+      ["apps", "email"],
+      ["apps", "gallery"],
+      ["apps", "marketplace.firefox.com"],
+      ["apps", "fm"],
+      ["apps", "video"]
+    ]
+  ],
+  "preferences": {
+    "grid.cols": 4
+  }
+}

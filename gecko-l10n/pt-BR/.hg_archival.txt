@@ -1,0 +1,6 @@
+repo: 866be58a5d4f1d87d310e41d375f7faccddb4de6
+node: 178ceca365f691a95c39d243f7b11a1389a9e622
+branch: default
+latesttag: FIREFOX_4_0b12_BUILD1
+latesttag: FIREFOX_4_0b12_RELEASE
+latesttagdistance: 292

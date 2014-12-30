@@ -1,0 +1,11 @@
+{
+ "bluetooth.enabled": false,
+ "camera.sound.enabled": false,
+ "debug.console.enabled": true,
+ "developer.menu.enabled": true,
+ "keyboard.vibration":true,
+ "keyboard.clicksound":false,
+ "keyboard.autocorrect":false,
+ "keyboard.wordsuggestion":false,
+ "lockscreen.enabled":true
+}
