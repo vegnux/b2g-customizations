@@ -2,10 +2,9 @@
 BRANCH=master
 
 ## Tipo de build
-VARIANT=eng
-export PRODUCTION=1
+VARIANT=user
+##export PRODUCTION=1
 export GAIA_DISTRIBUTION_DIR=$PWD/gaia-custom
-GECKO_CONFIGURE_ARGS="--update-channel=nightly"
 
 ## Boot logo
 export ENABLE_DEFAULT_BOOTANIMATION=true
@@ -27,8 +26,8 @@ export LOCALES_FILE=$PWD/gaia-l10n/languages_dev.json
 export GAIA_DEFAULT_LOCALE=es
 
 ## Idiomas GECKO
-export L10NBASEDIR=$PWD/gecko-l10n
-export MOZ_CHROME_MULTILOCALE="en-GB es-MX pt-BR"
+##export L10NBASEDIR=$PWD/gecko-l10n
+##export MOZ_CHROME_MULTILOCALE="en-GB es-MX pt-BR"
 
 ## Compare locales
 export PATH="$PATH:$PWD/compare-locales/scripts"
