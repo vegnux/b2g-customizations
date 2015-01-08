@@ -98,7 +98,7 @@ export GAIA_DISTRIBUTION_DIR=$WORKDIR/vegnuxmod
 ########################
 export L10NBASEDIR='$WORKDIR/gecko-l10n'
 export MOZ_CHROME_MULTILOCALE="es-ES"
-export PATH="$PATH:$WORKDIR/compare-locales/scripts"
+export PATH="$PATH:$WORKDIR/compare-locales/scripts:$WORKDIR/"
 export PYTHONPATH="$WORKDIR/compare-locales/lib"
 ########################
 ## Fota ./build.sh gecko-update-fota
