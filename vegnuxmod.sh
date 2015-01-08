@@ -91,7 +91,7 @@ export LOCALE_BASEDIR=$WORKDIR/gaia-l10n
 export LOCALES_FILE=$WORKDIR/gaia-l10n/languages_dev.json
 #export GAIA_DEFAULT_LOCALE=es
 export REMOTE_DEBUGGER=1
-export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,eu,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
+export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,eu,fr,hu,it,ja,pl,pt-BR,ru,sr-Cyrl,sr-Latn,sv-SE,zh-CN,zh-TW
 export GAIA_DISTRIBUTION_DIR=$WORKDIR/vegnuxmod
 ########################
 ## Gecko
@@ -125,11 +125,15 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/ja" name="l10n/ja/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/pl" name="l10n/pl/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/pt-BR" name="l10n/pt-BR/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/ru" name="l10n/ru/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/sv-SE" name="l10n/sv-SE/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/zh-CN" name="l10n/zh-CN/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/zh-TW" name="l10n/zh-TW/gaia.git" remote="mozillaorg" revision="master" />
 <!-- Gecko languages -->
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
@@ -152,11 +156,15 @@ cat << EOF > gaia-l10n/languages_dev.json
 "fr" : "Français",
 "hu" : "Magyar",
 "it" : "Italiano",
+"ja" : "日本語",
 "pl" : "Polski",
 "pt-BR" : "Português (do Brasil)",
 "ru" : "Русский",
 "sr-Cyrl" : "Српски",
-"sr-Latn" : "Srpski"
+"sr-Latn" : "Srpski",
+"sv-SE" : "Svenska",
+"zh-CN" : "中文 (简体)",
+"zh-TW" : "正體中文 (繁體)"
 }
 EOF
 }
@@ -202,11 +210,15 @@ echo "** Actualizando los lenguajes de gaia..."
 ./repo sync gaia-l10n/fr
 ./repo sync gaia-l10n/hu
 ./repo sync gaia-l10n/it
+./repo sync gaia-l10n/ja
 ./repo sync gaia-l10n/pl
 ./repo sync gaia-l10n/pt-BR
 ./repo sync gaia-l10n/ru
 ./repo sync gaia-l10n/sr-Cyrl
 ./repo sync gaia-l10n/sr-Latn
+./repo sync gaia-l10n/sv-SE
+./repo sync gaia-l10n/zh-CN
+./repo sync gaia-l10n/zh-TW
 echo "** Actualizando los lenguajes de gecko..."
 ./repo sync compare-locales
 ./repo sync gecko-l10n/es-ES
