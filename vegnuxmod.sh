@@ -10,7 +10,8 @@
 #############
 # VARIABLES #
 #############
-export BUILD_BRANCH=master
+export BUILD_BRANCH=v2.2
+export DEVICE=openc
 export ROOTDIR=$(pwd)
 export WORKDIR=$ROOTDIR/B2G
 #############
@@ -169,11 +170,9 @@ cat << EOF > gaia-l10n/languages_dev.json
 EOF
 }
 function SetBranch(){
-echo "1. ¿Con qué dispositivo desea trabajar? (ej.: hamachi, inari, otoro):"
-read DEVICE
 echo "** Estableciendo la rama $BUILD_BRANCH para el dispositivo $DEVICE..."
 cd $WORKDIR
-./repo init -u https://github.com/cargabsj175/b2g-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
+./repo init -u https://github.com/VegnuxMod/vmod-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
 }
  
 function NewRepo(){
