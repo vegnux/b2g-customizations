@@ -10,14 +10,10 @@
 #############
 # VARIABLES #
 #############
-export BUILD_BRANCH=master
+export BUILD_BRANCH=v2.2
+export DEVICE=rpi
 export ROOTDIR=$(pwd)
 export WORKDIR=$ROOTDIR/B2G
-#############
-# RPI		#
-#############
-export DEVICE=rpi
-export BUILD_BRANCH=master
 #############
 # FUNCIONES #
 #############
@@ -48,7 +44,7 @@ system \
 ve*
 }
 function CleanB2G(){
-echo "** Limpiando solo lo relacionado con gecko y gaia, puede tomarse unos segundos..."
+echo "** Limpiando codigo fuente de b2g, puede tomarse unos segundos..."
 cd $WORKDIR
 rm -r compare-locales \
 gaia* \
@@ -83,12 +79,12 @@ export LOCALE_BASEDIR=$WORKDIR/gaia-l10n
 export LOCALES_FILE=$WORKDIR/gaia-l10n/languages_dev.json
 #export GAIA_DEFAULT_LOCALE=es
 export REMOTE_DEBUGGER=1
-export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
+export GAIA_KEYBOARD_LAYOUTS=de,el,en,es,eu,fr,hu,it,pl,pt-BR,ru,sr-Cyrl,sr-Latn
 ## Gecko
 ########################
 export L10NBASEDIR='$WORKDIR/gecko-l10n'
 export MOZ_CHROME_MULTILOCALE="es-ES"
-export PATH="$PATH:$WORKDIR/compare-locales/scripts"
+export PATH="$PATH:$WORKDIR/compare-locales/scripts:$WORKDIR/"
 export PYTHONPATH="$WORKDIR/compare-locales/lib"
 ########################
 EOF
@@ -99,7 +95,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <manifest>
 <remote name="cm" fetch="https://github.com/CyanogenMod/" />
 <remote name="mozillaorg2" fetch="https://git.mozilla.org/" />
-<remote name="vegnux" fetch="https://github.com/cargabsj175/" />
+<remote name="vegnux" fetch="https://github.com/VegnuxMod/" />
 <!--adding busybox -->
 <project path="external/busybox" name="android_external_busybox" remote="cm" revision="cm-9.1.0" />
 <!-- Gaia languages -->
@@ -107,6 +103,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/el" name="l10n/el/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/eo" name="l10n/eo/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/es" name="l10n/es/gaia.git" remote="mozillaorg" revision="master" />
+<project path="gaia-l10n/eu" name="l10n/eu/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/fr" name="l10n/fr/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/hu" name="l10n/hu/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/it" name="l10n/it/gaia.git" remote="mozillaorg" revision="master" />
@@ -119,8 +116,8 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
-<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="$BUILD_BRANCH">
-<copyfile src="vegnuxmod.sh" dest="../vegnuxmod-master-rpi.sh" />
+<project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="${BUILD_BRANCH}-${DEVICE}">
+<copyfile src="vegnuxmod.sh" dest="../vegnuxmod-${BUILD_BRANCH}.sh" />
 </project>
 </manifest>
 EOF
@@ -132,6 +129,7 @@ cat << EOF > gaia-l10n/languages_dev.json
 "en-US" : "English (US)",
 "el" : "Ελληνικά",
 "eo" : "Esperanto",
+"eu" : "Euskara",
 "es" : "Español",
 "fr" : "Français",
 "hu" : "Magyar",
@@ -147,7 +145,7 @@ EOF
 function SetBranch(){
 echo "** Estableciendo la rama $BUILD_BRANCH para el dispositivo $DEVICE..."
 cd $WORKDIR
-./repo init -u https://github.com/mozilla-b2g/b2g-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
+./repo init -u https://github.com/VegnuxMod/vmod-manifest.git -b $BUILD_BRANCH -m $DEVICE.xml
 }
  
 function NewRepo(){
@@ -166,6 +164,11 @@ function UpdateAll(){
 cd $WORKDIR
 ./repo sync -j4
 }
+
+function UpdateAllOffLine(){
+cd $WORKDIR
+./repo sync -j4 -l
+}
  
 function UpdateB2G(){
 cd $WORKDIR
@@ -180,6 +183,7 @@ echo "** Actualizando los lenguajes de gaia..."
 ./repo sync gaia-l10n/el
 ./repo sync gaia-l10n/eo
 ./repo sync gaia-l10n/es
+./repo sync gaia-l10n/eu
 ./repo sync gaia-l10n/fr
 ./repo sync gaia-l10n/hu
 ./repo sync gaia-l10n/it
@@ -192,9 +196,36 @@ echo "** Actualizando los lenguajes de gecko..."
 ./repo sync compare-locales
 ./repo sync gecko-l10n/es-ES
 }
+
+function UpdateB2GOffLine(){
+cd $WORKDIR
+echo "** Actualizando gecko y gaia..."
+./repo sync gaia -l
+./repo sync gecko -l
+./repo sync vegnuxmod -l
+./repo sync gonk-misc -l
+echo "** Actualizando los lenguajes de gaia..."
+./repo sync gaia-l10n/de -l
+./repo sync gaia-l10n/el -l
+./repo sync gaia-l10n/eo -l
+./repo sync gaia-l10n/es -l
+./repo sync gaia-l10n/eu -l
+./repo sync gaia-l10n/fr -l
+./repo sync gaia-l10n/hu -l
+./repo sync gaia-l10n/it -l
+./repo sync gaia-l10n/pl -l
+./repo sync gaia-l10n/pt-BR -l
+./repo sync gaia-l10n/ru -l
+./repo sync gaia-l10n/sr-Cyrl -l
+./repo sync gaia-l10n/sr-Latn -l
+echo "** Actualizando los lenguajes de gecko..."
+./repo sync compare-locales -l
+./repo sync gecko-l10n/es-ES -l
+}
  
 function CopyFiles(){
-CF_XUL=b2g-34.0a1.multi.linux-x86_64.tar.bz2
+ARCH_XUL="$(uname -m)"
+CF_XUL="b2g-34.0a1.multi.linux-${ARCH_XUL}.tar.bz2"
 CF_MSG0="* Copiando ${CF_XUL}..."
 CF_MSG1="** No existe el fichero ${CF_XUL} necesario para gaia."
 CF_MSG2="Desea descargarlo? (s/n)"
