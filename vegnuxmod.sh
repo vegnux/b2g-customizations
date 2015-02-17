@@ -113,7 +113,7 @@ cat << EOF > .repo/local_manifests/extra.xml
 <project path="gaia-l10n/sr-Cyrl" name="l10n/sr-Cyrl/gaia.git" remote="mozillaorg" revision="master" />
 <project path="gaia-l10n/sr-Latn" name="l10n/sr-Latn/gaia.git" remote="mozillaorg" revision="master" />
 <!-- Gecko languages -->
-<project path="compare-locales" name="l10n/compare-locales.git" remote="mozillaorg2" revision="master" />
+<project path="compare-locales" name="compare-locales" remote="vegnux" revision="master" />
 <project path="gecko-l10n/es-ES" name="l10n/es-ES/gecko.git" remote="mozillaorg" revision="mozilla-beta" />
 <!-- extra gaia apps -->
 <project path="vegnuxmod" name="vegnuxmod" remote="vegnux" revision="${BUILD_BRANCH}-${DEVICE}">
